@@ -262,8 +262,8 @@ td,th {
 
 @font-face {
   font-family: Glyphicons Halflings;
-  src: url(../../fonts/glyphicons-halflings-regular.eot);
-  src: url(../../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"),url(../../fonts/glyphicons-halflings-regular.woff2) format("woff2"),url(../../fonts/glyphicons-halflings-regular.woff) format("woff"),url(../../fonts/glyphicons-halflings-regular.ttf) format("truetype"),url(../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg")
+  src: url(../fonts/glyphicons-halflings-regular.eot);
+  src: url(../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"),url(../fonts/glyphicons-halflings-regular.woff2) format("woff2"),url(../fonts/glyphicons-halflings-regular.woff) format("woff"),url(../fonts/glyphicons-halflings-regular.ttf) format("truetype"),url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg")
 }
 
 .glyphicon {
@@ -6888,8 +6888,8 @@ button.close {
 */
 @font-face {
   font-family: FontAwesome;
-  src: url(../../fonts/fontawesome-webfont.eot?v=4.3.0);
-  src: url(../../fonts/fontawesome-webfont.eot?#iefix&v=4.3.0) format("embedded-opentype"),url(../../fonts/fontawesome-webfont.woff2?v=4.3.0) format("woff2"),url(../../fonts/fontawesome-webfont.woff?v=4.3.0) format("woff"),url(../../fonts/fontawesome-webfont.ttf?v=4.3.0) format("truetype"),url(../../fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular) format("svg");
+  src: url(../fonts/fontawesome-webfont.eot?v=4.3.0);
+  src: url(../fonts/fontawesome-webfont.eot?#iefix&v=4.3.0) format("embedded-opentype"),url(../fonts/fontawesome-webfont.woff2?v=4.3.0) format("woff2"),url(../fonts/fontawesome-webfont.woff?v=4.3.0) format("woff"),url(../fonts/fontawesome-webfont.ttf?v=4.3.0) format("truetype"),url(../fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular) format("svg");
   font-weight: 400;
   font-style: normal
 }
@@ -9262,22 +9262,25 @@ button.close {
 
 .timer {
   font-family: HelveticaNeue-Light,Arial,Helvetica,Geneva,sans-serif;
-  color: #fff;
+  color: #1f1f1f;
   top: 0;
   left: 0;
   bottom: 0;
   height: 100%;
   width: 100%;
   border: 0;
-  cursor: default
+  cursor: default;
 }
 
 .timer,.timer div {
-  position: absolute
+  position: absolute;
 }
 
 .timer-main {
-  text-align: center
+  text-align: center;
+  font-size: 400px !important;
+  top: 100px !important;
+  left: 400px;
 }
 
 .timer-accessory {
@@ -9541,6 +9544,11 @@ button.close {
   border-top-right-radius: 4px;
   color: #333;
   font-weight: 400
+}
+
+.timer-intervals ul li {
+  padding-top: 0 !important;
+  font-size: 60px !important;
 }
 
 @media (max-width: 767px) {

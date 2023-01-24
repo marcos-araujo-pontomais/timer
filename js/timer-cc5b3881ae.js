@@ -8774,17 +8774,17 @@ runloop.intervalsForDefinition = function(t) {
           for (a = 0,
           r += 1,
           n > 0 && t.setRest.duration > 0 ? (i = e(t.setRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           i.number = r + "-" + a + "/" + t.intervals.length + "-" + t.numberOfSets,
           o[h++] = i) : n > 0 && t.intervalRest.duration > 0 && (i = e(t.intervalRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           i.number = r + "-" + a + "/" + t.intervals.length + "-" + t.numberOfSets,
           o[h++] = i),
           s = 0; s < t.numberOfSets; s++)
               s > 0 && t.intervalRest.duration > 0 && (i = e(t.intervalRest),
-              i.name = "Rest",
+              i.name = "Preparar",
               i.isRest = !0,
               i.number = r + "-" + a + "/" + t.intervals.length + "-" + t.numberOfSets,
               o[h++] = i),
@@ -8800,17 +8800,17 @@ runloop.intervalsForDefinition = function(t) {
           for (a += 1,
           r = 0,
           s > 0 && (t.setRest.duration > 0 ? (i = e(t.setRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           i.number = a + "-" + r + "/" + t.numberOfSets + "-" + t.intervals.length,
           o[h++] = i) : t.intervalRest.duration > 0 && (i = e(t.intervalRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           i.number = a + "-" + r + "/" + t.numberOfSets + "-" + t.intervals.length,
           o[h++] = i)),
           n = 0; n < t.intervals.length; n++)
               n > 0 && t.intervalRest.duration > 0 && (i = e(t.intervalRest),
-              i.name = "Rest",
+              i.name = "Preparar",
               i.isRest = !0,
               i.number = a + "-" + r + "/" + t.numberOfSets + "-" + t.intervals.length,
               o[h++] = i),
@@ -8824,15 +8824,15 @@ runloop.intervalsForDefinition = function(t) {
       var i, s, n, o, a, r = [], h = 0, l = 0, c = 0;
       for (s = 0; s < t.numberOfSets; s++)
           for (s > 0 && t.circuitRest.duration > 0 ? (i = e(t.circuitRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           r[h++] = i) : s > 0 && t.timerRest.duration > 0 && (i = e(t.timerRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           r[h++] = i),
           n = 0; n < t.timers.length; n++)
               for (n > 0 && t.timerRest.duration > 0 && (i = e(t.timerRest),
-              i.name = "Rest",
+              i.name = "Preparar",
               i.isRest = !0,
               r[h++] = i),
               a = u(t.timers[n]),
@@ -8854,17 +8854,17 @@ runloop.intervalsForDefinition = function(t) {
           for (a = 0,
           r += 1,
           n > 0 && t.tabataRest.duration > 0 ? (i = e(t.tabataRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           i.number = r + "-" + a + "/" + t.tabatas.length + "-" + l,
           o[h++] = i) : n > 0 && t.intervalRest.duration > 0 && (i = e(t.intervalRest),
-          i.name = "Rest",
+          i.name = "Preparar",
           i.isRest = !0,
           i.number = r + "-" + a + "/" + t.tabatas.length + "-" + l,
           o[h++] = i),
           s = 0; s < l; s++)
               s > 0 && t.intervalRest.duration > 0 && (i = e(t.intervalRest),
-              i.name = "Rest",
+              i.name = "Preparar",
               i.isRest = !0,
               i.number = r + "-" + a + "/" + t.tabatas.length + "-" + l,
               o[h++] = i),
@@ -9039,8 +9039,8 @@ var runloop = window.runloop || {};
     , o = $(".timer ul")
     , a = $(".timer-start-toggle")
     , r = $(".timer-reset")
-    , h = new Audio("/sounds/a6-sine-100ms.mp3")
-    , l = new Audio("../sounds/a6-sine-750ms.mp3")
+    , h = new Audio("/sounds/smb3_sound_effects_pause.wav")
+    , l = new Audio("../sounds/smb3_sound_effects_coin.wav")
     , u = runloop.createTimer().on("update", function() {
       $(".timer-elapsed p").text(i(u.elapsed())),
       $(".timer-remaining p").text(i(u.remaining() + .999)),
@@ -9071,7 +9071,7 @@ var runloop = window.runloop || {};
   }).on("alert-timer", function() {
       c.play()
   })
-    , c = new Audio("../sounds/a6-sine-750ms-end.mp3");
+    , c = new Audio("../sounds/smb3_sound_effects_1_up.wav");
   u.setIntervals(s),
   o.css("width", 50 * (s.length + 1) + "%"),
   n.css("background-color", runloop.colorForType(s[0].color)),
