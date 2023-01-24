@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-itunes-app" content="app-id=475816966, affiliate-data=11laMP">
+        <title>Alongamento - Interval Timer</title>
+        <style>
+            @charset "UTF-8";a,table {
+                background-color: transparent
+            }
+
+            h3,ul {
+                margin-bottom: 10px
+            }
+
+            .timer,.timer-accessory {
+                width: 100%
+            }
+
+            html {
+                font-family: sans-serif;
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+                font-size: 10px
+            }
+
+            a {
+                color: #db2c2c;
+                text-decoration: none
+            }
+
+            table {
+                border-collapse: collapse;
+                border-spacing: 0
+            }
+
+            td {
+                padding: 0
+            }
+
+            @font-face {
+                font-family: 'Glyphicons Halflings';
+                src: url(/fonts/glyphicons-halflings-regular.eot);
+                src: url(/fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"),url(/fonts/glyphicons-halflings-regular.woff2) format("woff2"),url(/fonts/glyphicons-halflings-regular.woff) format("woff"),url(/fonts/glyphicons-halflings-regular.ttf) format("truetype"),url(/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg")
+            }
+
+            .glyphicon {
+                position: relative;
+                top: 1px;
+                display: inline-block;
+                font-family: 'Glyphicons Halflings';
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale
+            }
+
+            .glyphicon-repeat:before {
+                content: "\e030"
+            }
+
+            .glyphicon-play:before {
+                content: "\e072"
+            }
+
+            *,:after,:before {
+                box-sizing: border-box
+            }
+
+            body {
+                margin: 0;
+                font-family: HelveticaNeue-Light,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-size: 14px;
+                line-height: 1.428571429;
+                color: #333;
+                background-color: #fff
+            }
+
+            h3 {
+                font-family: inherit;
+                font-weight: 500;
+                line-height: 1.1;
+                color: inherit;
+                margin-top: 20px;
+                font-size: 24px
+            }
+
+            p {
+                margin: 0 0 10px
+            }
+
+            ul {
+                margin-top: 0
+            }
+
+            @-ms-viewport {
+                width: device-width
+            }
+
+            .timer-container {
+                position: relative;
+                display: block;
+                height: 0;
+                padding: 0 0 56.25%;
+                overflow: hidden
+            }
+
+            .timer,.timer div {
+                position: absolute
+            }
+
+            .timer {
+                font-family: HelveticaNeue-Light,Arial,Helvetica,Geneva,sans-serif;
+                color: #fff;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                height: 100%;
+                border: 0
+            }
+
+            .timer-main {
+                text-align: center
+            }
+
+            .timer-accessory h3 {
+                text-transform: uppercase;
+                margin-bottom: 0
+            }
+
+            .timer-accessory p {
+                position: relative
+            }
+
+            .timer-elapsed {
+                text-align: left
+            }
+
+            .timer-interval-count {
+                text-align: center
+            }
+
+            .timer-remaining {
+                text-align: right
+            }
+
+            .timer-reset,.timer-start-toggle {
+                text-align: center;
+                height: 21%;
+                width: 12%;
+                border-top: solid 1px #fff;
+                bottom: 0
+            }
+
+            .timer-intervals {
+                height: 21%;
+                left: 11.8125%;
+                right: 11.8125%;
+                border-top: solid 1px #fff;
+                bottom: 0;
+                overflow: hidden
+            }
+
+            .timer-reset {
+                border-right: solid 1px #fff;
+                left: 0
+            }
+
+            .timer-start-toggle {
+                border-left: solid 1px #fff;
+                right: 0
+            }
+
+            .timer ul {
+                position: absolute;
+                padding: 0;
+                margin: 0;
+                height: 100%
+            }
+        </style>
+        <script>
+            /*!
+     https://github.com/filamentgroup/loadCSS
+     loadCSS: load a CSS file asynchronously.
+     [c]2014 @scottjehl, Filament Group, Inc.
+     Licensed MIT
+     */
+
+            /* exported loadCSS */
+            function loadCSS(href, before, media, callback) {
+                "use strict";
+                // Arguments explained:
+                // `href` is the URL for your CSS file.
+                // `before` optionally defines the element we'll use as a reference for injecting our <link>
+                // By default, `before` uses the first <script> element in the page.
+                // However, since the order in which stylesheets are referenced matters, you might need a more specific location in your document.
+                // If so, pass a different reference element to the `before` argument and it'll insert before that instead
+                // note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+                var ss = window.document.createElement("link");
+                var ref = before || window.document.getElementsByTagName("script")[0];
+                var sheets = window.document.styleSheets;
+                ss.rel = "stylesheet";
+                ss.href = href;
+                // temporarily, set media to something non-matching to ensure it'll fetch without blocking render
+                ss.media = "only x";
+                // DEPRECATED
+                if (callback) {
+                    ss.onload = callback;
+                }
+
+                // inject link
+                ref.parentNode.insertBefore(ss, ref);
+                // This function sets the link's media back to `all` so that the stylesheet applies once it loads
+                // It is designed to poll until document.styleSheets includes the new sheet.
+                ss.onloadcssdefined = function(cb) {
+                    var defined;
+                    for (var i = 0; i < sheets.length; i++) {
+                        if (sheets[i].href && sheets[i].href.indexOf(href) > -1) {
+                            defined = true;
+                        }
+                    }
+                    if (defined) {
+                        cb();
+                    } else {
+                        setTimeout(function() {
+                            ss.onloadcssdefined(cb);
+                        });
+                    }
+                }
+                ;
+                ss.onloadcssdefined(function() {
+                    ss.media = media || "all";
+                });
+                return ss;
+            }
+            loadCSS('/css/app-bab664bd2a.css')
+        </script>
+        <noscript>
+            <link rel="stylesheet" href="/css/app-bab664bd2a.css">
+        </noscript>
+        <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
+    </head>
+    <body>
+        <div class="timer-container">
+            <div class="timer">
+                <div class="timer-main">00:00</div>
+                <div class="timer-accessory timer-elapsed">
+                    <h3>Elapsed</h3>
+                    <p>00:00</p>
+                </div>
+                <div class="timer-accessory timer-interval-count">
+                    <h3>Intervals</h3>
+                    <p>0/0</p>
+                </div>
+                <div class="timer-accessory timer-remaining">
+                    <h3>Remaining</h3>
+                    <p>0:00</p>
+                </div>
+                <div class="timer-intervals">
+                    <ul></ul>
+                </div>
+                <div class="timer-reset">
+                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                </div>
+                <div class="timer-start-toggle">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <script src="/js/core-093ab4e59f.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+        <script>
+            var def = {
+                "via": "web",
+                "name": "Alongamento",
+                "type": 3,
+                "numberOfSets": 1,
+                "soundScheme": 8,
+                "intervals": [
+                {
+                    "name": "Panturrilha",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:3"
+                },
+                    {
+                    "name": "Esticar para cima",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:3"
+                }, {
+                    "name": "Ombro lateral esticado direito",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:61"
+                }, {
+                    "name": "Ombro lateral esticado esquerdo",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:175"
+                }, {
+                    "name": "Alongamento de ombros puxando para trás direito",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:237"
+                }, {
+                    "name": "Alongamento de ombros puxando para trás esquerdo",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:343"
+                }, {
+                    "name": "Antebraço esticado direito",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:485"
+                }, {
+                    "name": "Antebraço esticado direito invertido",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:619"
+                }, {
+                    "name": "Antebraço esticado esquerdo",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:775"
+                }, {
+                    "name": "Antebraço esticado esquerdo invertido",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:1017"
+                }, {
+                    "name": "Flexão lateral do pescoço para a direita",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:1253"
+                }, {
+                    "name": "Flexão lateral do pescoço para a esquerda",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:2335"
+                }, {
+                    "name": "Pescoço estendido para frente",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:2557"
+                }, {
+                    "name": "Pescoço estendido para trás",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:3207"
+                }, {
+                    "name": "Rotação de ombros para frente",
+                    "duration": 15,
+                    "color": 0,
+                    "$$hashKey": "object:3521"
+                }, {
+                    "name": "Rotação de ombros para trás",
+                    "duration": 15,
+                    "color": 0,
+                    "$$hashKey": "object:4419"
+                }, {
+                    "name": "Como Napoleão perdeu a guerra",
+                    "duration": 30,
+                    "color": 0,
+                    "$$hashKey": "object:4781"
+                }],
+                "intervalRest": {
+                    "name": "Rest",
+                    "duration": 5,
+                    "color": "1"
+                },
+                "setRest": {
+                    "name": "Rest",
+                    "duration": 0,
+                    "color": 0
+                },
+                "warmup": {
+                    "name": "Preparação",
+                    "duration": 10,
+                    "color": 0
+                },
+                "cooldown": {
+                    "name": "Cooldown",
+                    "duration": 0,
+                    "color": 0
+                }
+            };
+            $('#overlay').click(function() {
+                top.location.href = 'https://www.intervaltimer.com/timers/11469773-alongamento';
+            });
+        </script>
+        <script src="/js/timer-cc5b3881ae.js"></script>
+    </body>
+</html>
