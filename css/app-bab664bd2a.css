@@ -9548,7 +9548,7 @@ button.close {
 
 .timer-intervals ul li {
   padding-top: 0 !important;
-  font-size: 60px !important;
+  font-size: 50px !important;
 }
 
 @media (max-width: 767px) {
