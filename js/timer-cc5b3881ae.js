@@ -9071,7 +9071,7 @@ var runloop = window.runloop || {};
   }).on("alert-timer", function() {
       c.play()
   })
-    , c = new Audio("../sounds/smb3_sound_effects_1_up.wav");
+    , c = new Audio("../sounds/smb3_sound_effects_level_clear.wav");
   u.setIntervals(s),
   o.css("width", 50 * (s.length + 1) + "%"),
   n.css("background-color", runloop.colorForType(s[0].color)),
